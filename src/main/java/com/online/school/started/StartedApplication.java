@@ -2,6 +2,7 @@ package com.online.school.started;
 
 import com.online.school.started.entites.Clazz;
 import com.online.school.started.entites.User;
+import com.online.school.started.services.ClazzService;
 import com.online.school.started.services.UserService;
 import com.online.school.started.util.security.UserRoleEnum;
 import org.springframework.boot.CommandLineRunner;
@@ -24,12 +25,13 @@ public class StartedApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(UserService service) {
+    public CommandLineRunner demo(UserService userService, ClazzService clazzService) {
         return (args) -> {
-            service.save(Mono.fromSupplier(this::getUser)).subscribe();
-            service.save(Mono.fromSupplier(this::getUser)).subscribe();
-            service.save(Mono.fromSupplier(this::getUser)).subscribe();
-            service.save(Mono.fromSupplier(this::getTeacher)).subscribe();
+            userService.save(Mono.fromSupplier(this::getUser)).subscribe();
+            userService.save(Mono.fromSupplier(this::getUser)).subscribe();
+            userService.save(Mono.fromSupplier(this::getUser)).subscribe();
+            userService.save(Mono.fromSupplier(this::getTeacher)).subscribe();
+            clazzService.save(Mono.just(getClazz(getUser()))).subscribe();
         };
     }
 

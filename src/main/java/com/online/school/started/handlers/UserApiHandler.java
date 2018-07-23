@@ -1,6 +1,7 @@
 package com.online.school.started.handlers;
 
 import com.online.school.started.entites.User;
+import com.online.school.started.repositories.UserRepository;
 import com.online.school.started.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,39 +15,11 @@ import reactor.core.publisher.Mono;
 import java.util.Optional;
 
 @Component
-public class UserApiHandler {
-
-    private final UserService service;
+public class UserApiHandler extends BasicEntityApiHandler<UserService, UserRepository, User> {
 
     @Autowired
     public UserApiHandler(UserService service) {
-        this.service = service;
+        super(service, User.class);
     }
-
-    public Mono<ServerResponse> get(ServerRequest request) {
-        long id = Long.parseLong(request.pathVariable("id"));
-        Mono<User> user = service.get(id);
-        return user.flatMap(this::packUser).switchIfEmpty(notFound());
-    }
-
-    private Mono<ServerResponse> packUser(User user) {
-        if(user != null) {
-            return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromObject(user));
-        }
-        return null;
-    }
-
-    public Mono<ServerResponse> getAll(ServerRequest request) {
-        Flux<User> allUsers = this.service.getAll();
-
-        return ServerResponse.ok()
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(allUsers, User.class);
-    }
-
-    private Mono<ServerResponse> notFound() {
-        return ServerResponse.notFound().build();
-    }
-
 
 }
