@@ -5,6 +5,7 @@ import com.online.school.started.util.grade.ApproveStatus;
 
 import javax.persistence.*;
 
+//@Entity
 public class Grade {
 
     @Id

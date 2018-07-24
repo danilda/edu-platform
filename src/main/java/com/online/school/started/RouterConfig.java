@@ -1,7 +1,9 @@
 package com.online.school.started;
 
 import com.online.school.started.handlers.ClazzApiHandler;
+import com.online.school.started.handlers.lessons.LessonApiHandler;
 import com.online.school.started.handlers.UserApiHandler;
+import com.online.school.started.handlers.lessons.SubjectApiHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,15 +16,18 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 @Configuration
 public class RouterConfig {
 
-    private final UserApiHandler userHandler;
-
-    private final ClazzApiHandler clazzHandler;
+    @Autowired
+    UserApiHandler userHandler;
 
     @Autowired
-    public RouterConfig(UserApiHandler userHandler, ClazzApiHandler clazzHandler) {
-        this.userHandler = userHandler;
-        this.clazzHandler = clazzHandler;
-    }
+    ClazzApiHandler clazzHandler;
+
+    @Autowired
+    LessonApiHandler lessonHandler;
+
+    @Autowired
+    SubjectApiHandler subjectHandler;
+
 
     @Bean
     public RouterFunction<ServerResponse> userRouting() {
@@ -30,6 +35,10 @@ public class RouterConfig {
                 .route(GET("/user"), userHandler::getAll)
                 .andRoute(GET("/user/{id}"), userHandler::get)
                 .andRoute(GET("/clazz"), clazzHandler::getAll)
-                .andRoute(GET("/clazz/{id}"), clazzHandler::get);
+                .andRoute(GET("/clazz/{id}"), clazzHandler::get)
+                .andRoute(GET("/lesson"), lessonHandler::getAll)
+                .andRoute(GET("/lesson/{id}"), lessonHandler::get)
+                .andRoute(GET("/subject"), subjectHandler::getAll)
+                .andRoute(GET("/subject/{id}"), subjectHandler::get);
     }
 }

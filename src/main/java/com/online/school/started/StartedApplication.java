@@ -1,10 +1,11 @@
 package com.online.school.started;
 
-import com.online.school.started.entites.Clazz;
-import com.online.school.started.entites.User;
 import com.online.school.started.services.ClazzService;
+import com.online.school.started.services.lessons.LessonService;
+import com.online.school.started.services.lessons.SubjectService;
 import com.online.school.started.services.UserService;
-import com.online.school.started.util.security.UserRoleEnum;
+import com.online.school.started.util.test.DataBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
@@ -17,6 +18,18 @@ import reactor.core.publisher.Mono;
 @EnableWebFlux
 public class StartedApplication {
 
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    ClazzService clazzService;
+
+    @Autowired
+    LessonService lessonService;
+
+    @Autowired
+    SubjectService subjectService;
+
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(StartedApplication.class);
         app.setWebApplicationType(WebApplicationType.REACTIVE);
@@ -25,43 +38,24 @@ public class StartedApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(UserService userService, ClazzService clazzService) {
+    public CommandLineRunner demo() {
         return (args) -> {
-            userService.save(Mono.fromSupplier(this::getUser)).subscribe();
-            userService.save(Mono.fromSupplier(this::getUser)).subscribe();
-            userService.save(Mono.fromSupplier(this::getUser)).subscribe();
-            userService.save(Mono.fromSupplier(this::getTeacher)).subscribe();
-            clazzService.save(Mono.just(getClazz(getUser()))).subscribe();
+            userService.save(Mono.fromSupplier(DataBuilder::getUser)).subscribe();
+            userService.save(Mono.fromSupplier(DataBuilder::getUser)).subscribe();
+            userService.save(Mono.fromSupplier(DataBuilder::getUser)).subscribe();
+            userService.save(Mono.fromSupplier(DataBuilder::getTeacher)).subscribe();
+
+            clazzService.save(Mono.just(DataBuilder.getClazz(DataBuilder.getUser()))).subscribe();
+
+            subjectService.save(Mono.just(DataBuilder.getSubject("Математика"))).subscribe();
+            subjectService.save(Mono.just(DataBuilder.getSubject("English"))).subscribe();
+            subjectService.save(Mono.just(DataBuilder.getSubject("Информатика"))).subscribe();
+            subjectService.save(Mono.just(DataBuilder.getSubject("Физика"))).subscribe();
+
+            lessonService.save(Mono.just(DataBuilder.getLesson()));
+            lessonService.save(Mono.just(DataBuilder.getLesson()));
+            lessonService.save(Mono.just(DataBuilder.getLesson()));
+            lessonService.save(Mono.just(DataBuilder.getLesson()));
         };
-    }
-
-    private User getUser() {
-        return new User().setFirstName("Name")
-                .setLastName("Last")
-                .setMiddleName("Middle")
-                .setRole(UserRoleEnum.SUPER_ADMIN)
-                .setEmail("da@da.com")
-                .setPassword("secure_pass")
-                .setPhone("+380660077995")
-                .setAddress("Sume Zalyvna st. 39");
-    }
-
-    private User getTeacher() {
-        return new User().setFirstName("Teacher")
-                .setLastName("Alex")
-                .setMiddleName("Alexovich")
-                .setRole(UserRoleEnum.TEACHER)
-                .setEmail("da@net.com")
-                .setPassword("secure_pass")
-                .setPhone("+380660077995")
-                .setAddress("Sume Zalyvna st. 39");
-    }
-
-    private Clazz getClazz(User user) {
-        return new Clazz().setClassTeacher(user)
-                .setEducationYear((byte) 11)
-                .setLiteralIdentifier('a')
-                .setSpecialization("Math")
-                .setStartEducationYear((short) 1997);
     }
 }

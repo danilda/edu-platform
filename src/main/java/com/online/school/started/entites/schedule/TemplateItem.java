@@ -1,6 +1,6 @@
 package com.online.school.started.entites.schedule;
 
-import com.online.school.started.entites.Subject;
+import com.online.school.started.entites.lessons.Subject;
 
 import javax.persistence.*;
 
