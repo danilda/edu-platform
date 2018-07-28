@@ -1,0 +1,13 @@
+language: java
+jdk:
+- oraclejdk9
+before_install:
+- chmod +x mvnw
+sudo: false
+script: mvn clean verify
+notifications:
+  email:
+    recipients:
+    - danil.cheliadin@gmail.com
+    on_success: never
+    on_failure: always
