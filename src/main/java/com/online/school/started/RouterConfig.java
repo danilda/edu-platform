@@ -1,9 +1,9 @@
 package com.online.school.started;
 
-import com.online.school.started.handlers.ClazzApiHandler;
-import com.online.school.started.handlers.lessons.LessonApiHandler;
-import com.online.school.started.handlers.UserApiHandler;
-import com.online.school.started.handlers.lessons.SubjectApiHandler;
+import com.online.school.started.handlers.api.v0.ClazzApiHandler;
+import com.online.school.started.handlers.api.v0.lessons.LessonApiHandler;
+import com.online.school.started.handlers.api.v0.UserApiHandler;
+import com.online.school.started.handlers.api.v0.lessons.SubjectApiHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
