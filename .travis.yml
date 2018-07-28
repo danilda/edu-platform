@@ -1,8 +1,8 @@
 language: java
 jdk:
 - oraclejdk9
-before_install:
-- chmod +x mvnw
+#before_install:
+#- chmod +x mvnw
 sudo: false
 script: mvn clean verify
 notifications:
