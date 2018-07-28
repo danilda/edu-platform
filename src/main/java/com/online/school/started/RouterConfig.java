@@ -1,6 +1,7 @@
 package com.online.school.started;
 
 import com.online.school.started.handlers.api.v0.ClazzApiHandler;
+import com.online.school.started.handlers.api.v0.lessons.ClazzSubjectRelationApiHandler;
 import com.online.school.started.handlers.api.v0.lessons.LessonApiHandler;
 import com.online.school.started.handlers.api.v0.UserApiHandler;
 import com.online.school.started.handlers.api.v0.lessons.SubjectApiHandler;
@@ -28,6 +29,9 @@ public class RouterConfig {
     @Autowired
     SubjectApiHandler subjectHandler;
 
+    @Autowired
+    ClazzSubjectRelationApiHandler clazzSubjectHandler;
+
 
     @Bean
     public RouterFunction<ServerResponse> userRouting() {
@@ -39,6 +43,8 @@ public class RouterConfig {
                 .andRoute(GET("/lesson"), lessonHandler::getAll)
                 .andRoute(GET("/lesson/{id}"), lessonHandler::get)
                 .andRoute(GET("/subject"), subjectHandler::getAll)
-                .andRoute(GET("/subject/{id}"), subjectHandler::get);
+                .andRoute(GET("/subject/{id}"), subjectHandler::get)
+                .andRoute(GET("/clazzSubject"), clazzSubjectHandler::getAll)
+                .andRoute(GET("/clazzSubject/{id}"), clazzSubjectHandler::get);
     }
 }
