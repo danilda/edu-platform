@@ -14,4 +14,29 @@ public class Subject {
 
     @NotNull
     String name;
+
+    public Subject() {
+    }
+
+    public Subject(@NotNull String name) {
+        this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Subject setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Subject setName(String name) {
+        this.name = name;
+        return this;
+    }
 }

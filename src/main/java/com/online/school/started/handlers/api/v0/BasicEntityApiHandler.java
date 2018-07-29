@@ -1,4 +1,4 @@
-package com.online.school.started.handlers;
+package com.online.school.started.handlers.api.v0;
 
 import com.online.school.started.entites.User;
 import com.online.school.started.services.BasicEntityService;

@@ -1,0 +1,23 @@
+language: java
+jdk:
+ - oraclejdk9
+
+matrix:
+  allow_failures:
+    - jdk: oraclejdk9
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+sudo: false
+script:
+  - ./gradlew build --scan -s
+notifications:
+  email:
+    recipients:
+    - danil.cheliadin@gmail.com
+    on_success: never
+    on_failure: always

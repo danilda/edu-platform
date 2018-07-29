@@ -29,6 +29,7 @@ public class User {
     private String middleName;
 
     @NotNull
+    //TODO mb it should be list of roles?
     private UserRoleEnum role;
 
     @NotNull

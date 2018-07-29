@@ -1,4 +1,4 @@
-package com.online.school.started.db.config;
+package com.online.school.started.config.db;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ public class SchedulerConfiguration {
 
     private final Integer connectionPoolSize;
 
-    public SchedulerConfiguration(@Value("${spring.datasource.maximum-pool-size}") Integer connectionPoolSize) {
+    public SchedulerConfiguration(@Value("15") Integer connectionPoolSize) {
         this.connectionPoolSize = connectionPoolSize;
     }
 
