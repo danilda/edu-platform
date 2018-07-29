@@ -1,4 +1,4 @@
-package com.online.school.started.db.config;
+package com.online.school.started.config.db;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

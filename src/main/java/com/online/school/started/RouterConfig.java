@@ -32,7 +32,6 @@ public class RouterConfig {
     @Autowired
     ClazzSubjectRelationApiHandler clazzSubjectHandler;
 
-
     @Bean
     public RouterFunction<ServerResponse> userRouting() {
         return RouterFunctions

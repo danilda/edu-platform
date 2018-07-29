@@ -1,10 +1,12 @@
 package com.online.school.started.util.test;
 
 import com.online.school.started.entites.Clazz;
+import com.online.school.started.entites.TeacherSpecialization;
 import com.online.school.started.entites.User;
 import com.online.school.started.entites.lessons.ClazzSubjectRelation;
 import com.online.school.started.entites.lessons.Lesson;
 import com.online.school.started.entites.lessons.Subject;
+import com.online.school.started.util.constants.TeacherSpecializationConstants;
 import com.online.school.started.util.security.UserRoleEnum;
 
 import java.util.Date;
@@ -69,5 +71,13 @@ public class DataBuilder {
 
     public static Subject getSubject(String name) {
         return new Subject(name);
+    }
+
+    public static TeacherSpecialization getTeacherSpecialization() {
+        return getTeacherSpecialization(getTeacher(), TeacherSpecializationConstants.MATH);
+    }
+
+    public static TeacherSpecialization getTeacherSpecialization(User teacher, String specialization) {
+        return new TeacherSpecialization(teacher, specialization);
     }
 }
